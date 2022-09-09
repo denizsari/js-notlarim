@@ -5,15 +5,6 @@
 //? JS 'case sensitive'(büyük-küçük harf duyarlı) bir dildir. (var degisken; -- alert(Degisken) hata verir).
 //? JS komutları ; ile biter fakat bu opsiyoneldir. ; olmadan da kodlar çalışır.
 //? document.getElementById('div').innerHTML = '<h1>Başlık</h1>'; JS kodları içerisine de html tagleri gömülüp çalıştırılabilir.
-//?
-//?
-//?
-//?
-//?
-//?
-//?
-
-//todo Kod içerisinde ' kullanımı
 //? 'Deniz\'in evi' Kod içerisinde ' işareti kullanmak için öncesinde \ kullanılması gerekir aksi takdirde kodu bozar.
 
 //todo int + string değer
@@ -26,28 +17,124 @@
 //? Uygulama akışı içerisinde tutulan değerler ve değerlere ulaşılması ve tanımlanması.
 //? Değişken tanımlarken rakamları, harfleri ve _ kullanabiliriz. Fakat değişken isimleri rakamla başlayamaz.
 //? Bir değişken aynı anda sadece tek değer saklayabilir.
+//* Scope : Değişkeni tanımladığınız bölgeye göre isimlendirilir ve değişken de o bölgenin ismiyle anılır. (Global scope’ta tanımlanan değişken global değişkendir gibi.)
+//* Global Scope : JavaScript kodunda herhangi bir yerde tanımlanan değişkenlerdir. Bu değişkenlere her yerden erişebilirsiniz.
+//* Local Scope : Sadece tanımlandığı fonksiyon içinde geçerli olan değişkenlerdir. Dışarıdan bu değişkenlere erişemezsiniz. Function scope diye de anılır.
+//* Block Scope : Block scope ise her türlü { } süslü parantez arasında olan kısma denir. if-for da dahildir yani.
 
-//? Değişken tanımlama.
-var degisken1;
+//* JS Örneği
+var name = "global degisken";
+console.log(name);
+//? global degisken
+function foo() {
+  var name = "local degisken";
+  console.log(name);
+  //? local degisken
+}
+console.log(name);
+//? global degisken
 
-//? Aynı anda birden fazla değişken tanımlanabilir.
-var degisken1, degisken_2;
+//! Var
+//* var function scope’tur.
 
-//? Değişkene ilk değer ataması.
-var isim = "Asya";
+function foo() {
+  var pi = 3.14;
+  console.log(pi);
+  //? 3.14
+}
+console.log(pi);
+//? undefined
 
-//? Değişken tanımlama ve değer atama.
-var baslangic = 78,
-  bitis = 90;
+//! Function scope olduğu için if-for tanımlanan değişkenlere dışarıdan erişebilirsiniz.
 
-//? Değişken tanımlama ve değerini daha sonra atama.
-var dogruMu;
-dogruMu = false;
+for (var i = 0; i < 10; i++) {
+  console.log(i);
+  // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+}
+console.log(i);
+// 10
 
-var notlar = "Deniz SARI"; //? notlar değişkeni çağrıldığında getireceği sonuç "Deniz SARI" olacaktır.
-notlar = notlar + "İnsandır"; //? Notlar değişkenine sonradan eklenen değer "İnsandır". notlar = "Deniz SARI İnsandır"
-notlar = prompt("Eğitmen Kim?"); //? Değişkene kullanıcıya bir pop up soru çıkararak sorunun cevabına göre atama yapılması.
-//* notlar prompt atamasından daha sonra çağrıldığında kullanıcıdan gelen değer atanacaktır. notlar değişkeni tekrar çağrıldığında bu değer ile dönecektir.
+//* Değişken değeri sonradan değiştirilebilir.
+
+var pi = 3;
+console.log(pi);
+// 3
+
+pi = 3.14;
+console.log(pi);
+// 3.14
+
+//* Değişken tekrar tanımlanabilir.
+
+var pi = 3;
+console.log(pi);
+// 3
+
+var pi = 3.14;
+console.log(pi);
+// 3.14
+
+//! Const
+//* const ‘constant’ kelimesinden gelir ve ‘sabit’ anlamındadır.
+//? Değişkenin değerini sonradan değiştiremezsiniz. Yani değişkenin değeri sabittir.
+
+const pi = 3;
+console.log(pi);
+// 3
+pi = 3.14;
+console.log(pi);
+//? pi'nin değerini sonradan değiştirirseniz bu hatayı alırsınız.
+//! Uncaught TypeError: Assignment to constant variable.
+
+//* const sadece bir kez tanımlanabilir.
+
+const pi = 3;
+console.log(pi);
+// 3
+
+const pi = 3.1415926535897932384626433;
+console.log(pi);
+//! Uncaught SyntaxError: Identifier 'pi' has already been declared
+
+//* const block scope’tur. Yani sadece tanımlandığı { } süslü parantez içerisinden erişilebilir.
+
+{
+  const name = "büşra";
+  console.log(name);
+  // büşra
+}
+console.log(name);
+//! { } dışında tanımlama veya çağırma yapamazsın.
+
+//! Let
+//* Değişkenin değeri sonradan değiştirilebilir.
+
+let pi = 3;
+console.log(pi);
+// 3
+
+pi = 3.14;
+console.log(pi);
+// 3.14
+
+//* let sadece bir kez tanımlanabilir.
+let pi = 3;
+console.log(pi);
+// 3
+
+let pi = 3.1415926535897932384626433;
+console.log(pi);
+//? Tekrar tanımlanmak istendiğinde altta ki hatayı alırsın.
+//! Uncaught SyntaxError: Identifier 'pi' has already been declared
+
+//* let block scope’tur.
+
+for (let i = 0; i < 10; i++) {
+  console.log(i);
+  // 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+}
+console.log(i);
+//  i is not defined
 
 // todo Boolean örnek
 //* boolean true ve false değerleri ile bir döngü alır bu döngünün karşılığını size döndürür.
@@ -290,11 +377,9 @@ sehirler.length; //* sehirler dizisinin elemanın sayısını verir.
 // todo For While forEach
 
 //*for yapısı
-for(başlangıç değeri ; koşul ; artış miktarı)
-{
-    //?kodlar
+for (başlangıçdegeri; koşul; artismiktari) {
+  //?kodlar
 }
-
 
 //* For döngüsü
 for (i = 1; i <= 10; i++) {
@@ -359,15 +444,13 @@ sayilar.forEach(function (item, index, array) {
 //* 6 5 [1,2,3,4,5,6,7]
 //* 7 6 [1,2,3,4,5,6,7]
 
-
-
 //* for in kulanımı
 //? `for in` ile nesne içindeki özellikler kadar döngüye girilir.
 
-var film = {isim:"Matrix", tur:"Bilim Kurgu", yil:2500};
+var film = { isim: "Matrix", tur: "Bilim Kurgu", yil: 2500 };
 var x;
 for (x in film) {
-    console.log(film[x]);
+  console.log(film[x]);
 }
 
 //? Yukarıdaki örnekte film nesnesi içindeki her bir özellik için döngü çalışacak ve konsola Matrix, Bilim Kurgu, 2500 yazılacaktır.
@@ -449,15 +532,92 @@ function rengiDegistir() {
 
 // todo Nodlarla çalışmak
 
+var baslik = document.createElement("h2"); //? yeni bir html tagı oluşturuluyor.
+var node = document.createTextNode("Merhaba Javascript"); //? yeni bir textNode oluşturuluyor.
+baslik.appendChild(node); //? yukarı da oluşturulan baslik isimli değişkene tanımlanan html tagının içerisine node olarak atanan değişken verisi child olarak atanıyor.
+
+var deniz = document.getElementById("deniz").addEventListener("click", ekle); //? bu kısımda ise yeni bir değişken atanıyor ve bir addEventListener fonksiyonu atanıyor.
+
+function ekle() {
+  //? yukarı da atanan değişkenin fonksiyonu
+  var div1 = document.getElementById("div1"); //? html sekmesinden div1 id li div verisi çekiliyor.
+  var p2 = document.getElementById("p2"); //? html sekmesinden p2 id verisi çekiliyor.
+  div1.insertBefore(baslik, p2); //? en yukarıda atanan baslik değişkeni p2 değişkeninden bir öncesine yazdırılıyor.
+  div1.removeChild(p2); //? p2 değişkeninin içerisinde ki html bölümü kaldırılıyor.
+}
+
+//* replaceChild
 var baslik = document.createElement("h2");
 var node = document.createTextNode("Merhaba Javascript");
 baslik.appendChild(node);
 
-var deniz = document.getElementById("deniz").addEventListener("click", ekle);
+var div1 = document.getElementById("div1");
+var p2 = document.getElementById("p2");
 
-function ekle() {
-  var div1 = document.getElementById("div1");
-  var p2 = document.getElementById("p2");
-  div1.insertBefore(baslik, p2);
-  div1.removeChild(p2);
+div1.insertBefore(baslik, p2);
+
+alert("p2 siliniyor");
+div1.removeChild(p2);
+
+alert("Değiştiriliyor");
+var p1 = document.getElementById("p1");
+div1.replaceChild(baslik, p1); //? html tarafından çekilen p1 değişkenini atadığımız baslik değişkeni ile değiştiriyor.
+
+// todo İleri Diziler
+
+const dizi = [1, 2, 3, 4];
+
+const kareDizisi = [];
+
+dizi.forEach((sayi) => {
+  kareDizisi.push(sayi * sayi);
+});
+
+console.log(kareDizisi);
+
+//Map
+
+const mapDizi = dizi.map((sayi) => sayi * 3);
+
+console.log(mapDizi);
+
+//filter
+
+const filtreliDizi = dizi.filter((sayi) => sayi > 2);
+console.log(filtreliDizi);
+
+//reduce
+
+const toplam = dizi.reduce((acc, sayi) => {
+  return acc + sayi;
+}, 10);
+
+console.log(toplam);
+
+// todo Classlarla çalışmak
+
+//! Constructor metodu özel bir metottur. Sihirli metot olarak da bilinir.
+//! Yeni bir nesne oluşturulduğunda eğer sınıfın içerisinde constructor metodu varsa otomatik olarak çalışır.
+//! Nesne özelliklerini başlatmak için kullanılırlar.
+//! Yani kısaca sınıf başladığında bir işlem yaptırmak istiyorsak ilk olarak bu metot çalışır. Eğer bir constructor tanımlamazsanız Javascript otomatik olarak boş bir constructor çalıştırır.
+
+class Sirket {
+  //? oluşturduğumuz class
+  constructor(personel_sayisi, mudur_sayisi) {
+    //? class altyapısında oluşturulan constructor
+    this.personel_sayisi = personel_sayisi;
+    this.mudur_sayisi = mudur_sayisi;
+  }
+  giderHesapla(maas, mMaas, faturalar, ofis_kirası) {
+    //? class fonksiyonu
+    let personelMaas = this.personel_sayisi * maas;
+    let mudurMaas = this.mudur_sayisi * mMaas;
+    return personelMaas + mudurMaas + faturalar + ofis_kirası;
+  }
 }
+
+let sirket = new Sirket(5, 2); //? classın kopyalanması
+
+let gider = sirket.giderHesapla(4000, 7000, 1000, 5000);
+
+console.log("Bir aylık toplam gider : " + gider + " TL");
